@@ -1,12 +1,17 @@
 import { Outlet } from "@tanstack/react-router";
+import { AppSidebar } from "../containers/AppSidebar";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 
 export default function DashboardLayout() {
   return (
-    <div className="flex h-screen">
-      <aside className="w-64 bg-gray-200 p-4">Sidebar</aside>
+    <>
+      <AppSidebar />
       <main className="flex-1 p-6">
-        <Outlet />
+        <main>
+          <SidebarTrigger />
+          <Outlet />
+        </main>
       </main>
-    </div>
+    </>
   );
 }
