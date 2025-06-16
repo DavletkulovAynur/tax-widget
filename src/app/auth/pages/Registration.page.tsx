@@ -1,7 +1,7 @@
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo.svg";
 import illustrationAuth from "@/assets/illustrationAuth.svg";
+import { InputField } from "@/components/Input/InputField";
 
 const RegistrationPage = () => {
   return (
@@ -19,18 +19,19 @@ const RegistrationPage = () => {
               </h1>
               {/* Форма */}
               <form className="flex flex-col gap-5 max-w-[400px] w-full mx-auto">
-                <div>
-                  <label className="font-medium text-[15px] mb-1.5 block">
-                    Ваш e-mail <span className="text-[#258AFF]">*</span>
-                  </label>
-                  <Input type="email" placeholder="Введите" required />
-                </div>
-                <div>
-                  <label className="font-medium text-[15px] mb-1.5 block">
-                    Номер телефона
-                  </label>
-                  <Input type="tel" placeholder="+7 (___) ___-__-__" />
-                </div>
+                <InputField
+                  label="Ваш e-mail"
+                  type="email"
+                  placeholder="Введите"
+                  required
+                />
+                <InputField
+                  mask="+7 (000) 000-00-00"
+                  label="Номер телефона"
+                  type="tel"
+                  placeholder="+7 (___) ___-__-__"
+                  required
+                />
                 <Button type="submit" className="mt-2 font-medium text-base">
                   Продолжить
                 </Button>
