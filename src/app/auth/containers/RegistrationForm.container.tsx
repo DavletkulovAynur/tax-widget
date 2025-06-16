@@ -20,6 +20,7 @@ const RegistrationFormContainer = () => {
     console.log(data);
   };
 
+  console.log(errors);
   return (
     <div className="flex-1 pt-14 px-12 pb-0 flex flex-col justify-between">
       <div className="flex flex-col items-center">
@@ -36,7 +37,6 @@ const RegistrationFormContainer = () => {
         >
           <InputField
             label="Ваш e-mail"
-            type="email"
             placeholder="Введите"
             required
             {...register("email")}
