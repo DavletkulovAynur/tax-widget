@@ -11,17 +11,33 @@ import logo from "@/assets/logo.svg";
 import { registrationFormSchema } from "@/app/auth/infra/RegistrationForm.infra";
 import type { TRegistrationFormValues } from "@/app/auth/infra/RegistrationForm.infra";
 
-const RegistrationFormContainer = () => {
+interface RegistrationFormContainerProps {
+  onSuccess?: (data: TRegistrationFormValues) => void;
+  initialData?: TRegistrationFormValues | null;
+}
+
+const RegistrationFormContainer = ({
+  onSuccess,
+  initialData,
+}: RegistrationFormContainerProps) => {
   const {
     handleSubmit,
     control,
+    watch,
     formState: { errors },
   } = useForm<TRegistrationFormValues>({
     resolver: zodResolver(registrationFormSchema),
+    defaultValues: initialData || undefined,
   });
 
   // api
-  const { mutate: registrationMutate, isPending } = useRegistrationMutate();
+  const { mutate: registrationMutate, isPending } = useRegistrationMutate(
+    () => {
+      // Получаем текущие значения формы для передачи в onSuccess
+      const formValues = watch();
+      onSuccess?.(formValues);
+    }
+  );
 
   const onSubmit = (data: TRegistrationFormValues) => {
     registrationMutate(data);

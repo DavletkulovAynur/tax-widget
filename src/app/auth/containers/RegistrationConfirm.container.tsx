@@ -1,9 +1,11 @@
 const RegistrationConfirmContainer = ({
   onBack,
   onNext,
+  email,
 }: {
   onBack: () => void;
   onNext: () => void;
+  email?: string;
 }) => (
   <div className="flex-1 pt-14 px-12 pb-0 flex flex-col justify-between">
     <div>
@@ -11,7 +13,13 @@ const RegistrationConfirmContainer = ({
         Подтверждение
       </h1>
       <p className="mb-4">
-        Мы отправили письмо на вашу почту. Введите временный пароль из письма.
+        Мы отправили письмо на почту {email || "example@mail.ru"}.
+      </p>
+
+      <p>
+        Пожалуйста, пройдите по ссылке из письма для подтверждения почты и
+        получения пароля. Вы сможете сменить пароль на собственный после
+        регистрации
       </p>
       <input
         className="border rounded px-3 py-2 w-full mb-4"
