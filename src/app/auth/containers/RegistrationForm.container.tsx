@@ -1,26 +1,32 @@
-import { Button } from "@/components/ui/button";
-import logo from "@/assets/logo.svg";
-import { InputField } from "@/components/Input/InputField";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { registrationFormSchema } from "../infra/RegistrationForm.infra";
-import type { TRegistrationFormValues } from "../infra/RegistrationForm.infra";
+// api
+import { useRegistrationMutate } from "../api/Registration.mutate";
+// ui
+import { Button } from "@/components/ui/button";
+import { InputField } from "@/components/Input/InputField";
+// assets
+import logo from "@/assets/logo.svg";
+// infra
+import { registrationFormSchema } from "@/app/auth/infra/RegistrationForm.infra";
+import type { TRegistrationFormValues } from "@/app/auth/infra/RegistrationForm.infra";
 
 const RegistrationFormContainer = () => {
   const {
-    register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm<TRegistrationFormValues>({
     resolver: zodResolver(registrationFormSchema),
   });
 
+  // api
+  const { mutate: registrationMutate, isPending } = useRegistrationMutate();
+
   const onSubmit = (data: TRegistrationFormValues) => {
-    // TODO: обработка данных формы
-    console.log(data);
+    registrationMutate(data);
   };
 
-  console.log(errors);
   return (
     <div className="flex-1 pt-14 px-12 pb-0 flex flex-col justify-between">
       <div className="flex flex-col items-center">
@@ -35,23 +41,39 @@ const RegistrationFormContainer = () => {
           className="flex flex-col gap-5 max-w-[400px] w-full mx-auto"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <InputField
-            label="Ваш e-mail"
-            placeholder="Введите"
-            required
-            {...register("email")}
-            error={errors.email?.message}
+          <Controller
+            name="email"
+            control={control}
+            render={({ field }) => (
+              <InputField
+                label="Ваш e-mail"
+                placeholder="Введите"
+                required
+                {...field}
+                error={errors.email?.message}
+              />
+            )}
           />
-          <InputField
-            mask="+7 (000) 000-00-00"
-            label="Номер телефона"
-            type="tel"
-            placeholder="+7 (___) ___-__-__"
-            required
-            {...register("phone")}
-            error={errors.phone?.message}
+          <Controller
+            name="phone"
+            control={control}
+            render={({ field }) => (
+              <InputField
+                mask="+7 (000) 000-00-00"
+                label="Номер телефона"
+                type="tel"
+                placeholder="+7 (___) ___-__-__"
+                required
+                {...field}
+                error={errors.phone?.message}
+              />
+            )}
           />
-          <Button type="submit" className="mt-2 font-medium text-base">
+          <Button
+            type="submit"
+            disabled={isPending}
+            className="mt-2 font-medium text-base"
+          >
             Продолжить
           </Button>
         </form>
