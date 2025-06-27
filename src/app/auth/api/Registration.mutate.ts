@@ -1,14 +1,15 @@
 import { httpService } from "@/helpers/api/httpService";
 import { useMutation } from "@tanstack/react-query";
+import type { TRegistrationFormValues } from "../infra/RegistrationForm.infra";
 
-const RegistrationMutate = () => {
+const useRegistrationMutate = () => {
   const mutation = useMutation({
-    mutationFn: async (): Promise<void> => {
-      await httpService.post("/api/registration");
+    mutationFn: async (data: TRegistrationFormValues): Promise<void> => {
+      await httpService.post("/api/registration", data);
     },
   });
 
   return mutation;
 };
 
-export { RegistrationMutate };
+export { useRegistrationMutate };
