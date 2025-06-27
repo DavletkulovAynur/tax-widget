@@ -1,5 +1,6 @@
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Link } from "@tanstack/react-router";
 // api
 import { useRegistrationMutate } from "../api/Registration.mutate";
 // ui
@@ -110,9 +111,9 @@ const RegistrationFormContainer = ({
       {/* Ссылка на авторизацию */}
       <div className="text-[13px] text-[#B0B7C3] mt-8 mb-6">
         Уже есть профиль?{" "}
-        <a href="#" className="text-[#258AFF] font-medium">
+        <Link to="/login" className="text-[#258AFF] font-medium">
           Авторизация
-        </a>
+        </Link>
       </div>
     </div>
   );

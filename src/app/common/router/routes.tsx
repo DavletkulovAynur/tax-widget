@@ -1,11 +1,18 @@
 import { createRoute, redirect } from "@tanstack/react-router";
 import { rootRoute } from "./root";
-import { AuthPage } from "@/app/auth/pages/Auth.page";
+import { AuthorizationPage } from "@/app/auth/pages/Authorization.page";
+import { RegistrationPage } from "@/app/auth/pages/Registration.page";
 
-export const authRoute = createRoute({
+export const loginRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: "/auth",
-  component: () => <AuthPage />,
+  path: "/login",
+  component: () => <AuthorizationPage />,
+});
+
+export const registerRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/register",
+  component: () => <RegistrationPage />,
 });
 
 export const indexRoute = createRoute({
@@ -15,7 +22,7 @@ export const indexRoute = createRoute({
     // TODO: Replace with actual auth check
     const isAuthenticated = false;
     if (!isAuthenticated) {
-      throw redirect({ to: "/auth" });
+      throw redirect({ to: "/login" });
     }
     throw redirect({ to: "/dashboard" });
   },
