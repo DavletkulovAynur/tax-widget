@@ -35,7 +35,7 @@ const RegistrationInnContainer = () => {
                 label="ИНН"
                 type="tel"
                 placeholder="Введите"
-                required
+                requiredField
                 {...field}
                 error={errors.inn?.message}
               />

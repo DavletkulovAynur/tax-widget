@@ -1,6 +1,11 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+/* TODO: где это правильно указать */
+input {
+  margin-bottom: 0 !important;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {

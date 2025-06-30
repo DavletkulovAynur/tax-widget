@@ -1,8 +1,13 @@
 import { InputField } from "@/components/Input/InputField";
-import { Button } from "@/components/ui/button";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
-
-// interface
+// ui
+import { Button } from "@/components/ui/button";
+// infra
+import {
+  passwordFormSchema,
+  type TPasswordFormValues,
+} from "@/app/auth/infra/ConfirmForm.infra";
 
 const RegistrationConfirmContainer = ({
   onBack,
@@ -13,7 +18,21 @@ const RegistrationConfirmContainer = ({
   onNext: () => void;
   email?: string;
 }) => {
-  const { control } = useForm();
+  const {
+    control,
+    formState: { errors },
+    handleSubmit,
+  } = useForm<TPasswordFormValues>({
+    resolver: zodResolver(passwordFormSchema),
+  });
+
+  const onSubmit = (data: TPasswordFormValues) => {
+    console.log("Отправлено:", data);
+    // здесь можно вызвать API, переход на следующий шаг и т.д.
+    //TODO: переход на следующий шаг (временно)
+    onNext();
+  };
+
   return (
     <div>
       <p className="mb-4 text-[#080D13A6]">
@@ -35,9 +54,9 @@ const RegistrationConfirmContainer = ({
             <InputField
               label="Пароль из письма"
               placeholder="Введите"
-              required
+              requiredField
               {...field}
-              // error={errors.password?.message}
+              error={errors.password?.message}
             />
           )}
         />
@@ -49,7 +68,7 @@ const RegistrationConfirmContainer = ({
         <Button variant="outline" onClick={onBack} className="w-[20%]">
           Назад
         </Button>
-        <Button onClick={onNext} className="flex-1">
+        <Button onClick={handleSubmit(onSubmit)} className="flex-1">
           Продолжить
         </Button>
       </div>
