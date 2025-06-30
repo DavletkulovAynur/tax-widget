@@ -1,4 +1,4 @@
-import { createRoute, redirect } from "@tanstack/react-router";
+import { createRoute } from "@tanstack/react-router";
 import { rootRoute } from "./root";
 import DashboardLayout from "../layouts/DashboardLayout";
 import Overview from "../../overview/pages/Overview";
@@ -10,13 +10,13 @@ export const dashboardRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: DASHBOARD_PATH,
   component: DashboardLayout,
-  beforeLoad: () => {
-    // TODO: Replace with actual auth check
-    const isAuthenticated = false;
-    if (!isAuthenticated) {
-      throw redirect({ to: "/auth" });
-    }
-  },
+  // beforeLoad: () => {
+  //   // TODO: Replace with actual auth check
+  //   const isAuthenticated = false;
+  //   if (!isAuthenticated) {
+  //     throw redirect({ to: "/auth" });
+  //   }
+  // },
 });
 
 export const overviewRoute = createRoute({
