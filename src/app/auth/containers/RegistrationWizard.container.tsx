@@ -26,27 +26,27 @@ const RegistrationWizardContainer = () => {
           {/* Логотип */}
           <img src={logo} alt="logo" className="h-8 mb-12" />
 
-          <div>
-            <h1 className="text-[36px] font-bold text-[#258AFF] mb-8">
-              Регистрация
-            </h1>
+          <div className="flex flex-col items-center">
+            <div className="max-w-[400px] w-full">
+              <h1 className="text-[36px] font-bold text-[#258AFF] mb-8">
+                Регистрация
+              </h1>
 
-            {step === 1 && (
-              <RegistrationFormContainer
-                onSuccess={handleRegistrationSuccess}
-                initialData={formData}
-              />
-            )}
-            {step === 2 && (
-              <RegistrationConfirmContainer
-                onBack={() => setStep(1)}
-                onNext={() => setStep(3)}
-                email={formData?.email}
-              />
-            )}
-            {step === 3 && (
-              <RegistrationInnContainer onBack={() => setStep(2)} />
-            )}
+              {step === 1 && (
+                <RegistrationFormContainer
+                  onSuccess={handleRegistrationSuccess}
+                  initialData={formData}
+                />
+              )}
+              {step === 2 && (
+                <RegistrationConfirmContainer
+                  onBack={() => setStep(1)}
+                  onNext={() => setStep(3)}
+                  email={formData?.email}
+                />
+              )}
+              {step === 3 && <RegistrationInnContainer />}
+            </div>
           </div>
 
           {/* Ссылка на авторизацию */}

@@ -1,3 +1,9 @@
+import { InputField } from "@/components/Input/InputField";
+import { Button } from "@/components/ui/button";
+import { Controller, useForm } from "react-hook-form";
+
+// interface
+
 const RegistrationConfirmContainer = ({
   onBack,
   onNext,
@@ -6,33 +12,49 @@ const RegistrationConfirmContainer = ({
   onBack: () => void;
   onNext: () => void;
   email?: string;
-}) => (
-  <div>
-    <p className="mb-4">
-      Мы отправили письмо на почту {email || "example@mail.ru"}.
-    </p>
+}) => {
+  const { control } = useForm();
+  return (
+    <div>
+      <p className="mb-4 text-[#080D13A6]">
+        Мы отправили письмо на почту{" "}
+        <span className="font-bold">{email || "example@mail.ru"}</span>.
+      </p>
 
-    <p>
-      Пожалуйста, пройдите по ссылке из письма для подтверждения почты и
-      получения пароля. Вы сможете сменить пароль на собственный после
-      регистрации
-    </p>
-    <input
-      className="border rounded px-3 py-2 w-full mb-4"
-      placeholder="Пароль из письма"
-    />
-    <div className="flex gap-2">
-      <button className="text-[#258AFF] underline" onClick={onBack}>
-        Назад
-      </button>
-      <button
-        className="bg-[#258AFF] text-white px-4 py-2 rounded ml-auto"
-        onClick={onNext}
-      >
-        Продолжить
-      </button>
+      <p className="mb-4 text-[#080D13A6]">
+        Пожалуйста, пройдите по ссылке из письма для подтверждения почты и
+        получения пароля. Вы сможете сменить пароль на собственный после
+        регистрации
+      </p>
+
+      <form>
+        <Controller
+          name="password"
+          control={control}
+          render={({ field }) => (
+            <InputField
+              label="Пароль из письма"
+              placeholder="Введите"
+              required
+              {...field}
+              // error={errors.password?.message}
+            />
+          )}
+        />
+
+        <p className="mt-4 text-[#4AA9FF] text-sm">Отправить еще раз</p>
+      </form>
+
+      <div className="flex gap-2 mt-4">
+        <Button variant="outline" onClick={onBack} className="w-[20%]">
+          Назад
+        </Button>
+        <Button onClick={onNext} className="flex-1">
+          Продолжить
+        </Button>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export { RegistrationConfirmContainer };

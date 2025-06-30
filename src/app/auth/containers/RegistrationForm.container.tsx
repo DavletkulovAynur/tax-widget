@@ -46,7 +46,7 @@ const RegistrationFormContainer = ({
     <div className="flex flex-col items-center">
       {/* Форма */}
       <form
-        className="flex flex-col gap-5 max-w-[400px] w-full mx-auto"
+        className="flex flex-col gap-5 w-full"
         onSubmit={handleSubmit(onSubmit)}
       >
         <Controller
