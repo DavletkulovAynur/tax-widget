@@ -12,6 +12,7 @@ interface IProps {
   error?: string;
   className?: string;
   mask?: string;
+  requiredField?: boolean;
 }
 
 const toInputValue = (value: unknown) =>
@@ -37,11 +38,11 @@ const InputField: FC<IProps & React.InputHTMLAttributes<HTMLInputElement>> = ({
   };
 
   return (
-    <div className="space-y-1">
+    <div className="space-y-1 relative">
       {label && (
         <Label htmlFor={inputId}>
           {label}
-          {props.required && <span className="text-[#258AFF]">*</span>}
+          {props.requiredField && <span className="text-[#D43D3D]">*</span>}
         </Label>
       )}
       {mask ? (
@@ -52,7 +53,11 @@ const InputField: FC<IProps & React.InputHTMLAttributes<HTMLInputElement>> = ({
       {description && (
         <p className="text-sm text-muted-foreground">{description}</p>
       )}
-      {error && <p className="text-sm text-destructive">{error}</p>}
+      {error && (
+        <p className="text-xs text-destructive absolute -bottom-5 left-0 w-full overflow-hidden text-ellipsis whitespace-nowrap">
+          {error}
+        </p>
+      )}
     </div>
   );
 };

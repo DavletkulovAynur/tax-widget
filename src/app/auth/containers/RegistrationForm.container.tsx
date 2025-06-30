@@ -46,7 +46,7 @@ const RegistrationFormContainer = ({
     <div className="flex flex-col items-center">
       {/* Форма */}
       <form
-        className="flex flex-col gap-5 w-full"
+        className="flex flex-col gap-8 w-full"
         onSubmit={handleSubmit(onSubmit)}
       >
         <Controller
@@ -56,7 +56,7 @@ const RegistrationFormContainer = ({
             <InputField
               label="Ваш e-mail"
               placeholder="Введите"
-              required
+              requiredField
               {...field}
               error={errors.email?.message}
             />
@@ -70,8 +70,8 @@ const RegistrationFormContainer = ({
               mask="+7 (000) 000-00-00"
               label="Номер телефона"
               type="tel"
+              requiredField
               placeholder="+7 (___) ___-__-__"
-              required
               {...field}
               error={errors.phone?.message}
             />
